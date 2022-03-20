@@ -1,22 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import useFetch from "./hooks/useFetch";
 
 function App() {
+  const { data, error } = useFetch('https://jsonplaceholder.typicode.com/todos/1',
+    (result) => console.log("Response: " + result.data.title)
+  );
+
+  if (error) {
+    console.log("Error: " + error)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {data ? data.title : "Unknown Data"}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
